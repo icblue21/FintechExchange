@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.fintechexchange.mapper.ChargeMapper">
+
+    <insert id="insertPayment" parameterType="HashMap">
+
+        insert into payment
+            (email, amount, uid)
+        values
+            (#{email},#{amount},#{uid})
+
+    </insert>
+
+    <select id="checkMemberFromPayment" parameterType="String" resultType="HashMap">
+
+        select email, amount
+        from payment
+        where email = #{email}
+
+    </select>
+
+    <update id="updatePayment" parameterType="HashMap">
+
+        update payment
+        set amount = #{amount}
+        where email = #{email}
+
+    </update>
+
+    <select id="selectAmount" parameterType="String" resultType="String">
+
+        select amount
+        from payment
+        where email = #{email}
+
+    </select>
+
+    <select id="selectPayment" parameterType="String" resultType="HashMap">
+
+        SELECT
+            id
+             ,email
+             ,amount
+             ,uid
+             ,DATE_FORMAT(indate,'%Y-%m-%d %H:%i') indate
+        FROM
+            payment
+        WHERE
+            email=#{email}
+        order by
+            indate DESC
+    </select>
+
+</mapper>
